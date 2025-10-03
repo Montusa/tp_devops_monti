@@ -6,17 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { PlatosService } from './platos.service';
 import { CreatePlatoDto } from './dto/create-plato.dto';
 import { UpdatePlatoDto } from './dto/update-plato.dto';
+import { Plato } from './entities/plato.entity';
 
 @Controller('platos')
 export class PlatosController {
   constructor(private readonly platosService: PlatosService) {}
 
   @Post()
-  create(@Body() createPlatoDto: CreatePlatoDto) {
+  create(@Body() createPlatoDto: CreatePlatoDto): Plato {
     return this.platosService.create(createPlatoDto);
   }
 
@@ -31,12 +33,15 @@ export class PlatosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlatoDto: UpdatePlatoDto) {
-    return this.platosService.update(+id, updatePlatoDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePlatoDto: UpdatePlatoDto,
+  ) {
+    return this.platosService.update(id, updatePlatoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.platosService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.platosService.remove(id);
   }
 }
