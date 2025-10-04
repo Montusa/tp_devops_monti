@@ -56,11 +56,12 @@ export class PlatosService {
     return { ...plato };
   }
 
-  remove(id: number): void {
+  remove(id: number): string {
     const index = this.platos.findIndex((p) => p.id === id);
     if (index === -1) {
-      throw new NotFoundException('No se encontró un plato con id ${id}');
+      throw new NotFoundException(`No se encontró un plato con id ${id}`);
     }
     this.platos.splice(index, 1);
+    return `El plato con id ${id} fue eliminado correctamente`;
   }
 }
