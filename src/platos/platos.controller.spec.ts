@@ -41,7 +41,7 @@ describe('PlatosController', () => {
       const dto: CreatePlatoDto = {
         nombre: 'Milanesa',
         precio: 1500,
-        descripcion: 'Con papas',
+        descripcion: 'De ternera o suprema. Sale con papas',
       };
       const returned = { id: 1, ...dto };
       (service.create as jest.Mock).mockReturnValue(returned);
@@ -84,8 +84,6 @@ describe('PlatosController', () => {
       const retorno = { id, nombre: 'A', precio: 500, descripcion: 'D' };
       (service.findOne as jest.Mock).mockReturnValue(retorno);
 
-      // Notar aquí que en el controller usabas `@Param('id') id: string` y convertías con +id,
-      // pero idealmente podrías usar ParseIntPipe. En este test simulamos el comportamiento actual.
       expect(controller.findOne(String(id))).toBe(retorno);
       expect(service.findOne).toHaveBeenCalledWith(id);
     });
@@ -149,26 +147,3 @@ describe('PlatosController', () => {
     });
   });
 });
-
-/*
-import { Test, TestingModule } from '@nestjs/testing';
-import { PlatosController } from './platos.controller';
-import { PlatosService } from './platos.service';
-
-describe('PlatosController', () => {
-  let controller: PlatosController;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [PlatosController],
-      providers: [PlatosService],
-    }).compile();
-
-    controller = module.get<PlatosController>(PlatosController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
-*/
