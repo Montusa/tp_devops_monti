@@ -1,0 +1,29 @@
+# Dependencias
+node_modules
+npm-debug.log
+
+# Archivos de testing y coverage
+coverage
+*.spec.ts
+
+# Archivos de desarrollo
+.git
+.gitignore
+.vscode
+.idea
+
+# Archivos de build local
+dist
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Documentación
+README.md
+*.md
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
