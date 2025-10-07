@@ -68,7 +68,7 @@ describe('PlatosService', () => {
         precio: 300,
         descripcion: 'De carne',
       };
-      const created = service.create(dto);
+      service.create(dto);
 
       const lista = service.findAll();
       lista.push({
