@@ -23,7 +23,9 @@ async function bootstrap() {
 
   // Inicializar Sentry
   Sentry.init({
-    dsn: process.env.SENTRY_DSN || 'TU_DSN_AQUI', // Reemplazar con tu DSN
+    dsn:
+      process.env.SENTRY_DSN ||
+      'https://fa6da00d5a3972a3eed3f0f7ab562c0e@o4510184038727680.ingest.de.sentry.io/4510184059502672', // Reemplazar con tu DSN
     integrations: [nodeProfilingIntegration()],
     // Performance Monitoring
     tracesSampleRate: 1.0, // Captura 100% de las transacciones (para desarrollo/testing)
