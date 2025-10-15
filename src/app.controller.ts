@@ -11,10 +11,14 @@ export class AppController {
   }
 
   // Endpoint de prueba para Sentry
-  @Get('test-error')
+  @Get('/test-error')
+  getError(): void {
+    throw new Error('My first Sentry error!');
+  }
+  /*@Get('test-error')
   testError(): never {
     throw new Error('Error de prueba para Sentry');
-  }
+  }*/
 
   // Health check endpoint
   @Get('health')
