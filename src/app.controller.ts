@@ -9,4 +9,20 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  // Endpoint de prueba para Sentry
+  @Get('test-error')
+  testError(): never {
+    throw new Error('Error de prueba para Sentry');
+  }
+
+  // Health check endpoint
+  @Get('health')
+  healthCheck() {
+    return {
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    };
+  }
 }
