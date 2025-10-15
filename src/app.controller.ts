@@ -10,15 +10,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  // Endpoint de prueba para Sentry
+  // Snippet: endpoint de prueba para Sentry
   @Get('/test-error')
   getError(): void {
     throw new Error('My first Sentry error!');
   }
-  /*@Get('test-error')
-  testError(): never {
-    throw new Error('Error de prueba para Sentry');
-  }*/
 
   // Health check endpoint
   @Get('health')

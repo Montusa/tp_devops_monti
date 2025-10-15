@@ -17,6 +17,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - SENTRY_DSN=${SENTRY_DSN}
     
     # Reinicia automáticamente si el contenedor falla
     restart: unless-stopped
