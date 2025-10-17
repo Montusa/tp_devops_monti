@@ -1,23 +1,16 @@
-/*
-import './instrument';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  await app.listen(process.env.PORT ?? 3000);
-}
-void bootstrap();
-*/
-
 import './instrument';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import * as Sentry from '@sentry/node';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
+import { collectDefaultMetrics } from 'prom-client';
+
+// Variable global para almacenar el DSN
+export const SENTRY_DSN = process.env.SENTRY_DSN || '';
+
+// Inicializar métricas por defecto de prom-client
+collectDefaultMetrics();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
