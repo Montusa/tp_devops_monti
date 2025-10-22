@@ -1,25 +1,20 @@
 services:
   # Servicio de la API
   api:
-    # Construye la imagen usando el Dockerfile del directorio actual
     build:
       context: .
       dockerfile: Dockerfile
     
-    # Nombre del contenedor
     container_name: devops-api
     
-    # Mapeo de puertos: HOST:CONTAINER
     ports:
       - "3000:3000"
     
-    # Variables de entorno (opcional)
     environment:
       - NODE_ENV=production
       - PORT=3000
       - SENTRY_DSN=${SENTRY_DSN}
     
-    # Reinicia automáticamente si el contenedor falla
     restart: unless-stopped
     
     # Healthcheck para verificar que la API está funcionando
@@ -30,9 +25,7 @@ services:
       retries: 3
       start_period: 40s
       
-    #networks:
-    #  - monitoring
-
+    # Servicio de Prometheus
   prometheus:
     image: prom/prometheus:latest
     
@@ -51,9 +44,7 @@ services:
     
     restart: unless-stopped
     
-    #networks:
-    #  - monitoring
-
+  # Servicio de Grafana
   grafana:
     image: grafana/grafana:latest
     
@@ -73,14 +64,8 @@ services:
     
     depends_on:
       - prometheus
-    
-    #networks:
-    #  - monitoring
 
 volumes:
   prometheus_data:
   grafana_data:
 
-networks:
-  monitoring:
-    driver: bridge
