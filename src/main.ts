@@ -6,7 +6,6 @@ import * as Sentry from '@sentry/node';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
 import { collectDefaultMetrics } from 'prom-client';
 
-// Variable global para almacenar el DSN
 export const SENTRY_DSN = process.env.SENTRY_DSN || '';
 
 // Inicializar métricas por defecto de prom-client
@@ -15,16 +14,21 @@ collectDefaultMetrics();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Inicializar Sentry
   Sentry.init({
     dsn:
       process.env.SENTRY_DSN ||
-      'https://fa6da00d5a3972a3eed3f0f7ab562c0e@o4510184038727680.ingest.de.sentry.io/4510184059502672', // Reemplazar con tu DSN
-    integrations: [nodeProfilingIntegration()],
+      'https://fa6da00d5a3972a3eed3f0f7ab562c0e@o4510184038727680.ingest.de.sentry.io/4510184059502672',
+    integrations: [
+      nodeProfilingIntegration(),
+      // Send console.log, console.warn, and console.error calls as logs to Sentry
+      Sentry.consoleLoggingIntegration({ levels: ['log', 'warn', 'error'] }),
+    ],
+    // Enable logs to be sent to Sentry
+    enableLogs: true,
     // Performance Monitoring
-    tracesSampleRate: 1.0, // Captura 100% de las transacciones (para desarrollo/testing)
+    tracesSampleRate: 1.0,
     // Profiling
-    profilesSampleRate: 1.0, // Captura 100% de los profiles
+    profilesSampleRate: 1.0,
     environment: process.env.NODE_ENV || 'development',
   });
 

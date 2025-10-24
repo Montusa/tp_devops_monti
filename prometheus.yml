@@ -1,11 +1,11 @@
 # Configuración global
 global:
-  scrape_interval: 15s      # Recopilar métricas cada 15 segundos
+  scrape_interval: 15s
   evaluation_interval: 15s
   external_labels:
     monitor: 'devops-api-monitor'
 
-# Alertas (opcional, pero útil)
+# Alertas
 alerting:
   alertmanagers:
     - static_configs:
@@ -13,12 +13,12 @@ alerting:
 
 # Configuración de jobs de scraping
 scrape_configs:
-  # Scraping del servidor Prometheus mismo
+  # Scraping del servidor Prometheus
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  # Scraping de la API (el endpoint /metrics)
+  # Scraping del endpoint /metrics
   - job_name: 'devops-api'
     static_configs:
       - targets: ['api:3000']
